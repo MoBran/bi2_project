@@ -101,4 +101,5 @@ ENV/
 .mypy_cache/
 
 # data
-data/
+data/go_track_tracks.csv
+data/go_track_trackspoints.csv
