@@ -41,7 +41,7 @@ def get_duplicate_track_recording_candidates(trips_per_id):
             duplicate_candidates[row_value].append(index)
     return nrofduplicates, duplicate_candidates
 
-def get_real_duplicate_track_recordings(duplicate_candidates, trackspoints):
+def get_real_duplicate_track_recordings(duplicate_candidates, trackspoints, verbose=False):
     """
     Returns a pandas dataframe with all track_id's which are duplicates_mask
     """
@@ -49,7 +49,8 @@ def get_real_duplicate_track_recordings(duplicate_candidates, trackspoints):
     # our data is quite small. Usually looping through the df should be avoided.
     real_duplicates = list()
     for key, track_ids in duplicate_candidates.items():
-        #print(track_ids)
+        if verbose:
+            print(key, track_ids)
         for track_id_1 in track_ids:
             track1 = trackspoints[trackspoints["track_id"]==track_id_1].reset_index()
             # if track_id_1 == 26:
@@ -59,12 +60,16 @@ def get_real_duplicate_track_recordings(duplicate_candidates, trackspoints):
                     track2 = trackspoints[trackspoints["track_id"]==track_id_2].reset_index()
                     # if track_id_2 == 27:
                     #     print(track2.head())
-
-                    if track1.shape[0] == track2.shape[0]:
-                        if (track1["latitude"] == track2["latitude"]).all():
-                            if (track1["time"] == track2["time"]).all():
-                                if track_id_1 not in real_duplicates:
-                                    real_duplicates.append(track_id_2)
+                    if (track1.shape[0] == track2.shape[0]) and \
+                       (track1["latitude"] == track2["latitude"]).all() and \
+                       (track1["longitude"] == track2["longitude"]).all() and \
+                       (track1["time"] == track2["time"]).all() and \
+                       (track_id_1 not in real_duplicates):
+                        if verbose:
+                            print(track1.head())
+                            print(track2.head())
+                            print("append ", track_id_2)
+                        real_duplicates.append(track_id_2)
 
 
 
