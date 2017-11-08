@@ -3,7 +3,7 @@
 In this project we perform an analysis and create predictions for the GPS data set from the BI 2 course.
 
 **Source:**
-The data set has been created by M. O. Cruz, H. T. Macedo, R. Barreto they used in in
+The data set has been created by M. O. Cruz, H. T. Macedo, R. Barreto they used it in
 there [paper](https://github.com/MoBran/bi2_project/blob/master/literature/Grouping%20similar%20trajectories%20for%20car%20pooling%20purposes.pdf).
 The dataset has been recorded by 28 user with an Android app called [Go!Track.](https://play.google.com/store/apps/details?id=com.go.router)
 
