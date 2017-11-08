@@ -2,7 +2,7 @@
 
 In this project we perform an analysis and create predictions for the GPS data set from the BI 2 course.
 
-Source:
+**Source:**
 The data set has been created by M. O. Cruz, H. T. Macedo, R. Barreto they used in in
 there [paper](literature/Grouping similar trajectories for car pooling purposes.pdf).
 
