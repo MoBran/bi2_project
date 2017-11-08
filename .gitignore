@@ -103,3 +103,6 @@ ENV/
 # data
 data/go_track_tracks.csv
 data/go_track_trackspoints.csv
+# data
+data/preprocessed/go_track_tracks.csv
+data/preprocessed/go_track_trackspoints.csv

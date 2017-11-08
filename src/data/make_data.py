@@ -45,7 +45,7 @@ class DataSet:
             data = list()
             for file_name in file_names:
                 data_file_dir = os.path.join(self.data_dir_name, file_name)
-                print("Read ", data_file_dir)
+                #print("Read ", data_file_dir)
                 data.append(pd.read_csv(data_file_dir, index_col=ReadIndexColumn))
         else:
             data = pd.DataFrame()

@@ -6,9 +6,9 @@ Abstract: The dataset has been feed by Android app called Go!Track.
 Source:
 M. O. Cruz, H. T. Macedo, R. Barreto
 
-View the [data exploration](src/html_visualisations/DataExploration.html)
+View the [data exploration](src/DataExploration.ipynb)
 
-View the [model building](src/html_visualisations/model_building.html) (**not finished yet**)
+View the [model building](src/model_building.ipynb) (**still work in progress**)
 
 You can view the source code [here](src)
 
