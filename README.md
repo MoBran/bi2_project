@@ -1,16 +1,18 @@
 # VU Business Intelligence II Project - University of Vienna
 
-This project performs an analysis and predictions of the GPS data set from the BI 2 course.
+In this project we perform an analysis and create predictions for the GPS data set from the BI 2 course.
 
-Abstract: The dataset has been feed by Android app called Go!Track.
 Source:
-M. O. Cruz, H. T. Macedo, R. Barreto
+The data set has been created by M. O. Cruz, H. T. Macedo, R. Barreto they used in in
+there [paper](literature/Grouping similar trajectories for car pooling purposes.pdf).
 
-View the [data exploration](src/DataExploration.ipynb)
+The dataset has been recorded by an Android app called [Go!Track.](https://play.google.com/store/apps/details?id=com.go.router)
 
-View the [model building](src/model_building.ipynb) (**still work in progress**)
+**View the [data exploration](src/DataExploration.ipynb)**
 
-You can view the source code [here](src)
+**View the [model building](src/model_building.ipynb)** (**still work in progress**)
+
+**You can view the source code [here](src)**
 
 ## Requirements for running the jupyter notebooks on windows:
 
@@ -20,7 +22,7 @@ in the [data](data) dir.**
 1. Download and install [anaconda](https://www.anaconda.com/download/)
 2. Create a conda environment by entering:
    ```
-   conda create --name Name python=3 numpy=1.13 pandas=0.20 scikit-learn=0.19 matplotlib=2.0 seaborn 0.8
+   conda create --name Name python=3 numpy=1.13 pandas=0.20 scikit-learn=0.19 matplotlib=2.0 seaborn=0.8
    ```
 3. Activate the environment by entering:
    ```
