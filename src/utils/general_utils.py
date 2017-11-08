@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import datetime as dt
+import os
 
 def calculate_total_trip_time(trackspoints):
     """
@@ -75,3 +77,34 @@ def get_real_duplicate_track_recordings(duplicate_candidates, trackspoints, verb
 
 
     return real_duplicates
+
+
+def find_largest_difference(track):
+    biggest_diff = dt.datetime.now()
+    biggest_diff = biggest_diff-biggest_diff
+
+    start_id = 0
+    stop_id = 0
+    track_id = track.iloc[0]["track_id"]
+    for p in range(1,len(track)):
+        #calculate difference
+        new_diff = track.iloc[p]["time"] - track.iloc[p-1]["time"]
+        if new_diff > biggest_diff:
+            biggest_diff = new_diff
+            start_id = p-1
+            stop_id = p
+    largest_diff = [track_id, start_id, stop_id, biggest_diff]
+    #print(biggest_diff)
+    #print(start_id)
+    #print(stop_id)
+    return largest_diff
+
+
+
+def setup_directory(dir_name):
+    if not os.path.exists(dir_name):
+        try:
+            os.makedirs(dir_name)
+            print("Created Directory: {}".format(dir_name) )
+        except:
+            print("Could not create directory: {}".format(dir_name))
