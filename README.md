@@ -3,8 +3,9 @@
 In this project we perform an analysis and create predictions for the GPS data set from the BI 2 course.
 
 **Source:**
-The data set has been created by M. O. Cruz, H. T. Macedo, R. Barreto they used it in
-there [paper](https://github.com/MoBran/bi2_project/blob/master/literature/Grouping%20similar%20trajectories%20for%20car%20pooling%20purposes.pdf).
+The [data set](https://archive.ics.uci.edu/ml/datasets/GPS+Trajectories)
+has been created by M. O. Cruz, H. T. Macedo, R. Barreto and A.P. Guimares they used it in
+their [paper](https://github.com/MoBran/bi2_project/blob/master/literature/Grouping%20similar%20trajectories%20for%20car%20pooling%20purposes.pdf).
 The dataset has been recorded by 28 user with an Android app called [Go!Track.](https://play.google.com/store/apps/details?id=com.go.router)
 
 **View the [data exploration](src/DataExploration.ipynb)**
@@ -17,6 +18,7 @@ The dataset has been recorded by 28 user with an Android app called [Go!Track.](
 
 **It is assumed that you have the two csv files go_track_tracks.csv and go_track_trackspoints.csv
 in the [data](data) dir.**
+The data is available at the [uci machine learning repository](https://archive.ics.uci.edu/ml/datasets/GPS+Trajectories)
 
 1. Download and install [anaconda](https://www.anaconda.com/download/)
 2. Create a conda environment by entering:
