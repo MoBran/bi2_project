@@ -5,8 +5,7 @@ In this project we perform an analysis and create predictions for the GPS data s
 **Source:**
 The data set has been created by M. O. Cruz, H. T. Macedo, R. Barreto they used in in
 there [paper](literature/Grouping similar trajectories for car pooling purposes.pdf).
-
-The dataset has been recorded by an Android app called [Go!Track.](https://play.google.com/store/apps/details?id=com.go.router)
+The dataset has been recorded by 28 user with an Android app called [Go!Track.](https://play.google.com/store/apps/details?id=com.go.router)
 
 **View the [data exploration](src/DataExploration.ipynb)**
 
