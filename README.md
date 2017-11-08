@@ -30,4 +30,4 @@ in the [data](data) dir.**
    ```
    bi2_project/src> python create_data_sets.py
    ```
-5. Now you can execute the jupyter notebook [DataExploration.ipynb](src/DataExploration.ipynb) and [model_building.ipynb](src/src/DataExploration.ipynb)
+5. Now you can execute the jupyter notebook [DataExploration.ipynb](src/DataExploration.ipynb) and [model_building.ipynb](src/model_building.ipynb)
