@@ -23,7 +23,7 @@ The data is available at the [uci machine learning repository](https://archive.i
 1. Download and install [anaconda](https://www.anaconda.com/download/)
 2. Create a conda environment by entering:
    ```
-   conda create --name Name python=3 numpy=1.13 pandas=0.20 scikit-learn=0.19 matplotlib=2.0 seaborn=0.8
+   conda create --name Name python=3 numpy=1.13 pandas=0.20 scikit-learn=0.19 matplotlib=2.0 seaborn=0.8 statsmodels=0.8
    ```
 3. Activate the environment by entering:
    ```
@@ -33,4 +33,8 @@ The data is available at the [uci machine learning repository](https://archive.i
    ```
    bi2_project/src> python create_data_sets.py
    ```
-5. Now you can execute the jupyter notebook [DataExploration.ipynb](src/DataExploration.ipynb) and [model_building.ipynb](src/model_building.ipynb)
+5. Create feature engineered data by entering:
+  ```
+  bi2_project/src> create_feature_engineered_data_sets.py
+  ```
+6. Now you can execute the jupyter notebook [DataExploration.ipynb](src/DataExploration.ipynb) and [model_building.ipynb](src/model_building.ipynb)
