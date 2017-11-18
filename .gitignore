@@ -106,3 +106,6 @@ data/go_track_trackspoints.csv
 # data
 data/preprocessed/go_track_tracks.csv
 data/preprocessed/go_track_trackspoints.csv
+# data
+data/preprocessed_and_feature_engineered/go_track_tracks.csv
+data/preprocessed_and_feature_engineered/go_track_trackspoints.csv
