@@ -23,6 +23,29 @@ def calculate_total_trip_time(trackspoints):
     trips_per_id = trips_per_id.set_index(keys="track_id")
     return trips_per_id
 
+def get_starting_and_end_time_per_trip(trackspoints):
+    track_ids = trackspoints["track_id"].unique()
+    trip_start_times = list()
+    trip_end_times = list()
+    for id in track_ids:
+        track = trackspoints[trackspoints["track_id"] == id]
+        # make sure that index start at 0
+        track = track.reset_index()
+        trip_start_times.append(track["time"][0])
+
+        last_entry_index = track.shape[0]-1
+        trip_end_times.append(track["time"][last_entry_index])
+
+    starting_times_per_trip = pd.DataFrame({"track_id" : track_ids,
+                                 "trip_start" : trip_start_times})
+    starting_times_per_trip = starting_times_per_trip.set_index(keys="track_id")
+
+    end_times_per_trip = pd.DataFrame({"track_id" : track_ids,
+                                 "trip_end" : trip_end_times})
+    end_times_per_trip = end_times_per_trip.set_index(keys="track_id")
+
+    return starting_times_per_trip, end_times_per_trip
+
 
 def get_duplicate_track_recording_candidates(trips_per_id):
     """
@@ -99,7 +122,22 @@ def find_largest_difference(track):
     #print(stop_id)
     return largest_diff
 
+def calculate_ratings_per_time_unit(time, tracks, time_unit="weekday"):
+    ratings = pd.DataFrame()
+    ratings["time"] = time
+    for rating in range(1,4):
+        ratings["rating_"+str(rating)] = [1 if i==True else 0 for i in tracks["rating"]==rating]
 
+    ratings = ratings.set_index("time")
+    if time_unit == "weekday":
+        grouped_rating = ratings.groupby(ratings.index.weekday).sum()
+    elif time_unit == "month":
+        grouped_rating = ratings.groupby(ratings.index.month).sum()
+        grouped_rating.index = grouped_rating.index - 1
+    elif time_unit == "daytime":
+        grouped_rating = ratings.groupby(ratings.index.hour).sum()
+
+    return grouped_rating
 
 def setup_directory(dir_name):
     if not os.path.exists(dir_name):
