@@ -11,7 +11,10 @@ from sklearn.model_selection import cross_val_score
 
 def confusion_matrix(y_test, y_pred):
     cm = sk_confusion_matrix(y_test, y_pred)
-    cm = pd.DataFrame(data=cm, columns=[1,2,3], index=[1,2,3])
+    if cm.shape[1] == 2:
+        cm = pd.DataFrame(data=cm, columns=[0,1], index=[0,1])
+    else:
+        cm = pd.DataFrame(data=cm, columns=[1,2,3], index=[1,2,3])
     cm.columns.name = 'Predicted label'
     cm.index.name = 'True label'
     return cm
