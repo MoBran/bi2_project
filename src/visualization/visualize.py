@@ -175,3 +175,30 @@ def plot_multiclass_ROC_curve(y_test, y_score):
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
     # Put a legend to the right of the current axis
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=16);
+
+
+def plot_ROC_curve(y_test, y_score):
+    n_classes = y_test.shape[0]
+    # Compute ROC curve and ROC area for each class
+    fpr = dict()
+    tpr = dict()
+    roc_auc = dict()
+    for i in range(n_classes):
+        fpr[i], tpr[i], _ = roc_curve(y_test, y_score)
+        roc_auc[i] = auc(fpr[i], tpr[i])
+
+
+    fig, ax = plt.subplots(figsize=(12,8))
+    lw = 2
+    ax.plot(fpr[2], tpr[2], color='darkorange',
+             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
+    ax.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+    ax.set_xlim([0.0, 1.0])
+    ax.set_ylim([0.0, 1.05])
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.set_title('ROC Curve')
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+    # Put a legend to the right of the current axis
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=16);
