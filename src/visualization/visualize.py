@@ -105,7 +105,7 @@ def plot_months_polar(df):
     ax.set_title("Traffic Ratings: 3=good, 2=normal, 1=bad \n")
     ax.legend(loc="lower center", fontsize=14)
 
-def plot_multiclass_ROC_curve(y_test, y_score):
+def plot_multiclass_ROC_curve(y_test, y_score, title=None):
     """
     Plot a mulitclass ROC curve.
     The code has been adapted from:
@@ -115,6 +115,9 @@ def plot_multiclass_ROC_curve(y_test, y_score):
     macro -  macro-averaging, which gives equal weight to the classification
              of each label.
     """
+    if type(y_test) is pd.DataFrame:
+        y_test = np.array(y_test)
+
     n_classes = y_test.shape[1]
     # Compute ROC curve and ROC area for each class
     fpr = dict()
@@ -129,7 +132,6 @@ def plot_multiclass_ROC_curve(y_test, y_score):
     roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
 
     #Compute macro-average ROC curve and ROC area
-
     # First aggregate all false positive rates
     all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_classes)]))
 
@@ -170,14 +172,18 @@ def plot_multiclass_ROC_curve(y_test, y_score):
     ax.set_ylim([0.0, 1.05])
     ax.set_xlabel('False Positive Rate')
     ax.set_ylabel('True Positive Rate')
-    ax.set_title('ROC for multi-class')
+    if title == None:
+        ax.set_title('ROC for multi-class')
+    else:
+        ax.set_title(title)
+
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
     # Put a legend to the right of the current axis
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=16);
 
 
-def plot_ROC_curve(y_test, y_score):
+def plot_ROC_curve(y_test, y_score, title=None):
     n_classes = y_test.shape[0]
     # Compute ROC curve and ROC area for each class
     fpr = dict()
@@ -188,7 +194,7 @@ def plot_ROC_curve(y_test, y_score):
         roc_auc[i] = auc(fpr[i], tpr[i])
 
 
-    fig, ax = plt.subplots(figsize=(12,8))
+    fig, ax = plt.subplots(figsize=(8,4))
     lw = 2
     ax.plot(fpr[2], tpr[2], color='darkorange',
              lw=lw, label='ROC curve (area = %0.2f)' % roc_auc[2])
@@ -197,8 +203,43 @@ def plot_ROC_curve(y_test, y_score):
     ax.set_ylim([0.0, 1.05])
     ax.set_xlabel('False Positive Rate')
     ax.set_ylabel('True Positive Rate')
-    ax.set_title('ROC Curve')
+    if title == None:
+        ax.set_title('ROC Curve')
+    else:
+        ax.set_title(title)
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
     # Put a legend to the right of the current axis
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=16);
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=14);
+
+
+
+def plot_validation_curves(train_scores, test_scores, param_range, xlabel = "Parameter"):
+    train_mean = np.mean(train_scores, axis=1)
+    train_std = np.std(train_scores, axis=1)
+    test_mean = np.mean(test_scores, axis=1)
+    test_std = np.std(test_scores, axis=1)
+
+    fig, ax = plt.subplots()
+    ax.plot(param_range, train_mean,
+         color='blue', marker='o',
+         markersize=5,
+         label='training accuracy $\pm \sigma$')
+    ax.fill_between(param_range, train_mean + train_std,
+                     train_mean - train_std, alpha=0.15,
+                     color='blue')
+    ax.plot(param_range, test_mean,
+             color='green', linestyle='--',
+             marker='s', markersize=5,
+             label='validation accuracy $\pm \sigma$')
+    ax.fill_between(param_range,
+                     test_mean + test_std,
+                     test_mean - test_std,
+                     alpha=0.15, color='green')
+    ax.grid()
+    #plt.xscale('log')
+    ax.legend(loc='lower right')
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel('Accuracy')
+    ax.set_ylim([0, 1.2])
+    plt.show();
