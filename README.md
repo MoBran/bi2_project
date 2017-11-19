@@ -10,6 +10,8 @@ The dataset has been recorded by 28 user with an Android app called [Go!Track.](
 
 **View the [data exploration](src/DataExploration.ipynb)**
 
+**View the [feature engineering](src/Feature_Engineering.ipynb)** (**still work in progress**)
+
 **View the [model building](src/model_building.ipynb)** (**still work in progress**)
 
 **You can view the source code [here](src)**
@@ -34,7 +36,7 @@ The data is available at the [uci machine learning repository](https://archive.i
    bi2_project/src> python create_data_sets.py
    ```
 5. Create feature engineered data by entering:
-  ```
-  bi2_project/src> create_feature_engineered_data_sets.py
-  ```
-6. Now you can execute the jupyter notebook [DataExploration.ipynb](src/DataExploration.ipynb) and [model_building.ipynb](src/model_building.ipynb)
+    ```
+    bi2_project/src> create_feature_engineered_data_sets.py
+    ```
+6. Now you can execute the jupyter notebook [DataExploration.ipynb](src/DataExploration.ipynb), [Feature_Engineering.ipynb](src/Feature_Engineering.ipynb) and [model_building.ipynb](src/model_building.ipynb)
