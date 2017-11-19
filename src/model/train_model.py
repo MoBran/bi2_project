@@ -8,6 +8,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score
 
+def binary_to_multi(values):
+    helper = []
+    for array in values:
+        helper.append(array.argmax(axis = 0) + 1)
+    return helper
 
 def confusion_matrix(y_test, y_pred):
     cm = sk_confusion_matrix(y_test, y_pred)
