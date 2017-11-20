@@ -9,6 +9,48 @@ from sklearn.metrics import auc
 from scipy import interp
 from itertools import cycle
 
+import seaborn as sns
+import matplotlib.patches as mpatches
+
+
+def extract_class_specific_feature(d, feature, y_label):
+    ''' This function creates a dictionary containing a list of values of a specific feature for every instance of the y_label
+    d = dataset
+    feature = independent variable column name
+    y_label = dependent variable column name
+    '''
+    y_categorical = set(d[y_label])
+    feature_dic = {}
+    for y_val in y_categorical:
+        feature_dic[y_val] = list(d[d[y_label] == y_val][feature])
+        #feature_list.append())
+    return feature_dic
+
+def create_density_plot_for_categorical_variable(d, feature, y_label):
+    ''' creates an overlapping density plot of the feature for every distinct value of y_label
+    d = dataset
+    feature = independent variable column name
+    y_label = dependent variable column name
+    '''
+    palette = cycle(sns.color_palette())
+    y_categorical = set(d[y_label])
+    #create a dictionary
+    feature_dict = extract_class_specific_feature(d, feature, y_label)
+    #create a desnity line for every categorical variable (key)
+    handles = []
+    data_max = 0
+    for key in y_categorical:
+        color=next(palette)
+        sns.set()
+        plot=sns.distplot(feature_dict[key], hist=False, color=color, kde_kws={"shade":True})
+        max_y = plot.yaxis.get_data_interval()[1]
+        data_max =  max_y if max_y > data_max else data_max
+        label = mpatches.Patch(color=color, label=key)
+        handles.append(label)
+    plt.ylim(0, max_y*1.1)
+    plt.rcParams["figure.figsize"] = (6,4)
+    plt.title(feature)
+    plt.show();
 
 def plot_weekdays_polar(df):
     """This code has been adapted from
