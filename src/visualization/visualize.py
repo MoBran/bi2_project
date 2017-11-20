@@ -162,6 +162,7 @@ def plot_multiclass_ROC_curve(y_test, y_score, title=None):
 
     colors = cycle(['aqua', 'darkorange', 'cornflowerblue'])
     for i, color in zip(range(n_classes), colors):
+
         ax.plot(fpr[i], tpr[i], color=color, lw=lw,
                  label='ROC curve of rating {0} (area = {1:0.2f})'
                  ''.format(i+1, roc_auc[i]))
@@ -173,9 +174,9 @@ def plot_multiclass_ROC_curve(y_test, y_score, title=None):
     ax.set_xlabel('False Positive Rate')
     ax.set_ylabel('True Positive Rate')
     if title == None:
-        ax.set_title('ROC for multi-class')
+        ax.set_title('ROC for multi-class',fontsize=16)
     else:
-        ax.set_title(title)
+        ax.set_title(title,fontsize=16)
 
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
