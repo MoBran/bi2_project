@@ -146,3 +146,16 @@ def setup_directory(dir_name):
             print("Created Directory: {}".format(dir_name) )
         except:
             print("Could not create directory: {}".format(dir_name))
+
+
+def rescale_gps_data(data, scale=1000):
+    col_names = list(data.columns.values)
+    if "rating" in col_names:
+        ratings = data["rating"]
+        data = data.drop("rating", axis=1)
+        col_names.remove("rating")
+    for name in col_names:
+        if "latitude" or "longitude" in name:
+            data[name] = round((data[name]*scale) % 1, 7)
+    data["rating"] = ratings
+    return data
