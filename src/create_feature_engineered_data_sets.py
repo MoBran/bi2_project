@@ -44,8 +44,13 @@ def main():
     general_utils.setup_directory(datadir_preprocessed_and_feature_engineered)
     feature_engineered_tracks.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,"go_track_tracks.csv"), index = False)
     trackspoints.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,"go_track_trackspoints.csv"), index = False)
-    trackspoints_per_time_interval.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,"trackspoints_per_time_interval_{}_and_max_time_{}.csv".format(str(time_interval),str(max_trip_duration))), index = False)
-    trackspoints_per_quantile.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,"trackspoints_per_quantile_{}.csv".format(str(nr_of_quantiles))), index = False)
+
+    datadir_preprocessed_and_feature_engineered = os.path.join(datadir_preprocessed_and_feature_engineered,"trackspoints")
+    general_utils.setup_directory(datadir_preprocessed_and_feature_engineered)
+    trackspoints_per_time_interval.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,
+                                                       "trackspoints_per_time_interval_{}_and_max_time_{}.csv".format(str(time_interval),str(max_trip_duration))), index = False)
+    trackspoints_per_quantile.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,
+                                                  "trackspoints_per_quantile_{}.csv".format(str(nr_of_quantiles))), index = False)
 
 
 if __name__ == '__main__':
