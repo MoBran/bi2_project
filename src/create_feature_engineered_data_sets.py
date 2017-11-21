@@ -22,9 +22,9 @@ def main():
     ##############
     # time_interval and max_trip_duration in minutes
     time_interval = 10
-    max_trip_duration = 40
+    max_trip_duration = 60
     # for the other table you can specify the number of quantiles
-    nr_of_quantiles = 5
+    nr_of_quantiles = 4
 
     parentdir = os.path.dirname(os.getcwd())
     datadir = os.path.join(parentdir, "data", "preprocessed")
@@ -48,9 +48,9 @@ def main():
     datadir_preprocessed_and_feature_engineered = os.path.join(datadir_preprocessed_and_feature_engineered,"trackspoints")
     general_utils.setup_directory(datadir_preprocessed_and_feature_engineered)
     trackspoints_per_time_interval.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,
-                                                       "trackspoints_per_time_interval_{}_and_max_time_{}.csv".format(str(time_interval),str(max_trip_duration))), index = False)
+                                                       "trackspoints_per_time_interval_{}_and_max_time_{}.csv".format(str(time_interval),str(max_trip_duration))), index = True)
     trackspoints_per_quantile.to_csv(os.path.join(datadir_preprocessed_and_feature_engineered,
-                                                  "trackspoints_per_quantile_{}.csv".format(str(nr_of_quantiles))), index = False)
+                                                  "trackspoints_per_quantile_{}.csv".format(str(nr_of_quantiles))), index = True)
 
 
 if __name__ == '__main__':

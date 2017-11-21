@@ -194,5 +194,6 @@ def transform_trackspoints_to_track_per_quantile(trackspoints, tracks, nr_of_qua
             new_features.loc[track_id,
                              long_column] = track.loc[idx, "longitude"]
 
+    new_features["rating"] = tracks.set_index(keys="id")["rating"]
     new_features = new_features.reset_index().rename(columns={"id":"track_id"}).set_index("track_id")
     return new_features
