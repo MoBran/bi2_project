@@ -56,10 +56,11 @@ def create_density_plot_for_categorical_variable(d, feature, y_label):
         plot=sns.distplot(feature_dict[key], hist=False, color=color, kde_kws={"shade":True})
         max_y = plot.yaxis.get_data_interval()[1]
         data_max =  max_y if max_y > data_max else data_max
-        label = mpatches.Patch(color=color, label=key)
+        label = mpatches.Patch(color=color, label= str(y_label) + str(key))
         handles.append(label)
     plt.ylim(0, max_y*1.1)
     plt.rcParams["figure.figsize"] = (6,4)
+    plt.legend(handles=handles)
     plt.title(feature)
     plt.show();
 
