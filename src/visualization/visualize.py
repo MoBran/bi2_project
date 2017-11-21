@@ -12,6 +12,17 @@ from itertools import cycle
 import seaborn as sns
 import matplotlib.patches as mpatches
 
+import gmplot
+import os
+
+def plot_track(track, file_name):
+    '''
+    Plots a track onto google maps. produces a <file_name>.html file
+    '''
+    gmas = gmplot.GoogleMapPlotter(track["latitude"].iloc[0],track["longitude"].iloc[0], 18)
+    gmas.plot(track["latitude"].iloc[1:],track["longitude"].iloc[1:])
+    html_file = file_name + '.html'
+    gmas.draw(os.path.join("html_visualisations", html_file))
 
 def extract_class_specific_feature(d, feature, y_label):
     ''' This function creates a dictionary containing a list of values of a specific feature for every instance of the y_label
