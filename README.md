@@ -10,9 +10,9 @@ The dataset has been recorded by 28 user with an Android app called [Go!Track.](
 
 **View the [data exploration](src/DataExploration.ipynb)**
 
-**View the [feature engineering](src/Feature_Engineering.ipynb)** (**still work in progress**)
+**View the [feature engineering](src/Feature_Engineering.ipynb)**
 
-**View the [model building](src/model_building.ipynb)** (**still work in progress**)
+**View the [model building](src/model_building.ipynb)** 
 
 **You can view the source code [here](src)**
 
