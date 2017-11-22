@@ -4,6 +4,7 @@ import datetime as dt
 import os
 from scipy.misc import comb
 import math
+from sklearn.preprocessing import scale
 
 def calculate_total_trip_time(trackspoints):
     """
@@ -150,16 +151,26 @@ def setup_directory(dir_name):
             print("Could not create directory: {}".format(dir_name))
 
 
-def rescale_gps_data(data, scale=1000):
+def rescale_gps_data(data, scale_by=1000, standardize=False):
     col_names = list(data.columns.values)
-    if "rating" in col_names:
+    rating_included = "rating" in col_names
+    if rating_included:
         ratings = data["rating"]
         data = data.drop("rating", axis=1)
         col_names.remove("rating")
     for name in col_names:
         if "latitude" or "longitude" in name:
-            data[name] = round((data[name]*scale) % 1, 7)
-    data["rating"] = ratings
+            data[name] = round((data[name]*scale_by) % 1, 7)
+
+    if rating_included and standardize:
+        data = pd.DataFrame(scale(data), columns=col_names,
+                            index=list(data.index))
+    elif standardize:
+        data = pd.DataFrame(scale(data), columns=col_names,
+                            index=list(data.index))
+
+    if rating_included:
+        data["rating"] = ratings
     return data
 
 
@@ -170,3 +181,10 @@ def calculate_ensemble_error(n_classifier, error):
              (1-error)**(n_classifier - k)
              for k in range(k_start, n_classifier + 1)]
     return sum(probs)
+
+
+def get_binary_labels(data):
+    y = list(data)
+    y = [1 if (i==1 or i==2) else 0 for i in y]
+    y = np.array(y)
+    return y

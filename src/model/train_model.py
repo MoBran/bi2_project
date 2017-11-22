@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
 
 from sklearn.metrics import confusion_matrix as sk_confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score
+
+from model.ensemble import EnsembleClassifier
 
 def binary_to_multi(values):
     helper = []
@@ -63,3 +63,31 @@ def report_model_performance(model, predictions, X_test, ground_truth):
 
     cm = confusion_matrix(ground_truth, predictions)
     print("\nConfusion Matrix:\n", cm)
+
+
+def find_best_weights(models, data, start_weight=1, end_weight=4, scoring="accuracy"):
+    """Extended from http://sebastianraschka.com/Articles/2014_ensemble_classifier.html
+    """
+    df = pd.DataFrame(columns=('w1', 'w2', 'w3', 'mean_score', 'std_score'))
+
+    i = 0
+    for w1 in range(start_weight, end_weight):
+        for w2 in range(start_weight, end_weight):
+            for w3 in range(start_weight, end_weight):
+
+                if len(set((w1,w2,w3))) == 1: # skip if all weights are equal
+                    continue
+
+                eclf = EnsembleClassifier(clfs=models, weights=[w1,w2,w3])
+                scores = cross_val_score(
+                                        estimator=eclf,
+                                        X=data[0],
+                                        y=data[1],
+                                        cv=5,
+                                        scoring=scoring,
+                                        n_jobs=1)
+
+                df.loc[i] = [w1, w2, w3, scores.mean(), scores.std()]
+                i += 1
+
+    return df.sort_values(by=["mean_score","std_score"], ascending=False).reset_index(drop=True)

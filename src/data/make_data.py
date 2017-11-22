@@ -101,7 +101,7 @@ class DataSet:
         track_ids_to_be_removed = list(set(track_ids_to_be_removed))
 
         # identified track_id 30 to be an outlier
-        outliers = [30]
+        outliers = [30,54,55]
         track_ids_to_be_removed += outliers
         tracks = tracks.set_index(keys="id").drop(track_ids_to_be_removed).reset_index()
 

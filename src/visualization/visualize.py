@@ -300,6 +300,7 @@ def plot_validation_curves(train_scores, test_scores, param_range, xlabel = "Par
     ax.set_xlabel(xlabel)
     ax.set_ylabel('Accuracy')
     ax.set_ylim([0, 1.2])
+    plt.title("Validation Curve")
     plt.show();
 
 
@@ -316,4 +317,47 @@ def plot_ensemble_error(error_range, ensemble_error):
     plt.legend(loc='upper left')
     plt.xticks([i*0.1 for i in range(0,11)])
     plt.yticks([i*0.1 for i in range(0,11)])
+    plt.show();
+
+
+def plot_class_probabilities(prediction_probabilities, weights):
+
+    # get class probabilities for the first sample in the dataset
+    class1_1 = [pr[0, 0] for pr in prediction_probabilities]
+    class2_1 = [pr[0, 1] for pr in prediction_probabilities]
+
+
+    # plotting
+
+    N = 4  # number of groups
+    ind = np.arange(N)  # group positions
+    width = 0.35  # bar width
+
+    fig, ax = plt.subplots()
+
+    # bars for classifier 1-3
+    p1 = ax.bar(ind, np.hstack(([class1_1[:-1], [0]])), width,
+                color=sns.color_palette()[0], edgecolor='k')
+    p2 = ax.bar(ind + width, np.hstack(([class2_1[:-1], [0]])), width,
+                color=sns.color_palette()[4], edgecolor='k')
+
+    # bars for VotingClassifier
+    p3 = ax.bar(ind, [0, 0, 0, class1_1[-1]], width,
+                color='blue', edgecolor='k')
+    p4 = ax.bar(ind + width, [0, 0, 0, class2_1[-1]], width,
+                color='steelblue', edgecolor='k')
+
+    # plot annotations
+    plt.axvline(2.8, color='k', linestyle='dashed')
+    ax.set_xticks(ind + width)
+    ax.set_xticklabels(['RandomForestClassifier\nweight '+str(weights[0]),
+                        'LogisticRegression\nweight ' + str(weights[1]),
+                        'SVM\nweight '+str(weights[2]),
+                        'VotingClassifier\n(average probabilities)'],
+                       rotation=40,
+                       ha='right')
+    plt.ylim([0, 1])
+    plt.yticks([i*0.1 for i in range(0,11)])
+    plt.title('Class probabilities')
+    plt.legend([p1[0], p2[0]], ['class 1', 'class 2'], loc='upper left')
     plt.show();

@@ -22,7 +22,7 @@ def main():
     ##############
     # time_interval and max_trip_duration in minutes
     time_interval = 10
-    max_trip_duration = 60
+    max_trip_duration = 40
     # for the other table you can specify the number of quantiles
     nr_of_quantiles = 4
 
