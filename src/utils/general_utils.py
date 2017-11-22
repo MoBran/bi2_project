@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import os
+from scipy.misc import comb
+import math
 
 def calculate_total_trip_time(trackspoints):
     """
@@ -159,3 +161,12 @@ def rescale_gps_data(data, scale=1000):
             data[name] = round((data[name]*scale) % 1, 7)
     data["rating"] = ratings
     return data
+
+
+def calculate_ensemble_error(n_classifier, error):
+    k_start = math.ceil(n_classifier / 2.0)
+    probs = [comb(n_classifier, k) *
+             error**k *
+             (1-error)**(n_classifier - k)
+             for k in range(k_start, n_classifier + 1)]
+    return sum(probs)

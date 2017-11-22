@@ -238,14 +238,17 @@ def plot_multiclass_ROC_curve(y_test, y_score, title=None):
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=16);
 
 
-def plot_ROC_curve(y_test, y_score, title=None):
+def plot_ROC_curve(y_test, y_score, title=None, invert=False):
     n_classes = y_test.shape[0]
     # Compute ROC curve and ROC area for each class
     fpr = dict()
     tpr = dict()
     roc_auc = dict()
     for i in range(n_classes):
-        fpr[i], tpr[i], _ = roc_curve(y_test, y_score)
+        if invert:
+            tpr[i],fpr[i], _ = roc_curve(y_test, y_score)
+        else:
+            fpr[i], tpr[i], _ = roc_curve(y_test, y_score)
         roc_auc[i] = auc(fpr[i], tpr[i])
 
 
@@ -297,4 +300,20 @@ def plot_validation_curves(train_scores, test_scores, param_range, xlabel = "Par
     ax.set_xlabel(xlabel)
     ax.set_ylabel('Accuracy')
     ax.set_ylim([0, 1.2])
+    plt.show();
+
+
+
+def plot_ensemble_error(error_range, ensemble_error):
+    plt.plot(error_range, ensemble_error,
+          label='Ensemble error',
+          linewidth=2)
+    plt.plot(error_range, error_range,
+              linestyle='--', label='Base error',
+              linewidth=2)
+    plt.xlabel('Base error')
+    plt.ylabel('Base and Ensemble error')
+    plt.legend(loc='upper left')
+    plt.xticks([i*0.1 for i in range(0,11)])
+    plt.yticks([i*0.1 for i in range(0,11)])
     plt.show();
