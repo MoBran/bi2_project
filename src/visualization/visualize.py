@@ -359,5 +359,5 @@ def plot_class_probabilities(prediction_probabilities, weights):
     plt.ylim([0, 1])
     plt.yticks([i*0.1 for i in range(0,11)])
     plt.title('Class probabilities')
-    plt.legend([p1[0], p2[0]], ['class 1', 'class 2'], loc='upper left')
+    plt.legend([p1[0], p2[0]], ['Label 0', 'Label 1'], loc='upper left')
     plt.show();
